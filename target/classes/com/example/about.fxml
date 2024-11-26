@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <fx:include source="template.fxml" />
+      <VBox alignment="CENTER" layoutX="228.0" layoutY="72.0" minWidth="-Infinity" prefHeight="484.0" prefWidth="701.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="182.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Library Management System" textAlignment="CENTER" underline="true">
+               <font>
+                  <Font name="Bookman Old Style Bold" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Library Management System, &#10;specially designed by Seong Kin and Xue Qing for CAT201 assignment 1,&#10;a comprehensive solution designed to simplify and streamline library operations. &#10;This system empowers librarians and administrators to efficiently manage library resources, &#10;ensuring a seamless and enjoyable experience for all users." textAlignment="CENTER">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="© 2024 Seong Kin &amp; Xue Qing. All rights reserved." />
+         </children></VBox>
+   </children>
+</AnchorPane>
