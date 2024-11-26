@@ -32,37 +32,9 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="CENTER">
-               <children>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Add books" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Borrow books" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Return books" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
             <AnchorPane fx:id="csvDropPane" prefHeight="403.0" prefWidth="728.0" style="-fx-border-color: #000;">
                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets left="10.0" right="10.0" />
                </VBox.margin>
                <children>
                   <Text fill="#8c8c8c" layoutX="219.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drag and drop to upload your .csv file">
@@ -70,7 +42,7 @@
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Button fx:id="uploadCSVbtn" layoutX="326.0" layoutY="291.0" mnemonicParsing="false" text="Upload" onAction="#uploadViaBtn"/>
+                  <Button fx:id="uploadCSVbtn" layoutX="326.0" layoutY="291.0" mnemonicParsing="false" onAction="#uploadViaBtn" text="Upload" />
                   <Text fill="#5b5b5b" layoutX="263.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Or press the &quot;Upload&quot; button">
                      <font>
                         <Font size="14.0" />
@@ -78,6 +50,37 @@
                   </Text>
                </children>
             </AnchorPane>
+            <HBox alignment="CENTER">
+               <children>
+                  <Button fx:id="addBookBtn" onAction="#addPopUp" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Add" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="borrowBookBtn"  contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Borrow" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="returnBookBtn"  contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Return" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
          </children></VBox>
    </children>
 </AnchorPane>

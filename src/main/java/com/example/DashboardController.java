@@ -5,6 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -15,7 +18,12 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,6 +31,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DashboardController {
 
@@ -33,6 +42,15 @@ public class DashboardController {
     private Button uploadCSVbtn;
 
     private TableView<ObservableList<String>> tableView;
+
+    @FXML
+    private Button addBookBtn;
+
+    @FXML
+    private Button borrowBookBtn;
+
+    @FXML
+    private Button returnBookBtn;
 
     @FXML
     private void initialize() {
@@ -175,6 +193,33 @@ public class DashboardController {
             } catch (IOException e) {
                 showAlert("Error", "Failed to load CSV file.");
             }
+        }
+    }
+
+    @FXML
+    private void addPopUp(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("addBookDialog.fxml"));
+            DialogPane addBookDialogPane = loader.load();
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+
+            dialog.setTitle("Add Books");
+            dialog.setResizable(false);
+            dialog.setDialogPane(addBookDialogPane);
+
+            // At the same time, stop the user from interacting with the main window
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            if (clickedButton.get() == ButtonType.OK) {
+                System.out.println("OK button clicked");
+                // implement the logic to add the book
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

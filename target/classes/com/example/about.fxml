@@ -23,6 +23,9 @@
                <VBox.margin>
                   <Insets bottom="50.0" />
                </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="© 2024 Seong Kin &amp; Xue Qing. All rights reserved." />
          </children></VBox>
