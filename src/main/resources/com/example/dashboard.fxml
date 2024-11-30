@@ -21,7 +21,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <TextField prefHeight="27.0" prefWidth="660.0" promptText="Search books with title, author, or ISBN..." style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #000;" />
+                  <TextField fx:id="searchField" prefHeight="27.0" prefWidth="660.0" promptText="Search books with title, author, or ISBN..." style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: #000;" />
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -32,7 +32,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <AnchorPane fx:id="csvDropPane" prefHeight="403.0" prefWidth="728.0" style="-fx-border-color: #000;">
+            <AnchorPane fx:id="csvDropPane" prefHeight="403.0" prefWidth="728.0" style="-fx-border-color: #d9d9d9;">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -52,7 +52,7 @@
             </AnchorPane>
             <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="addBookBtn" onAction="#addPopUp" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Add" textAlignment="CENTER">
+                  <Button fx:id="addBookBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addPopUp" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Add" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -60,7 +60,7 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="borrowBookBtn" onAction="#borrowPopUp"  contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Borrow" textAlignment="CENTER">
+                  <Button fx:id="borrowBookBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#borrowPopUp" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Borrow" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -68,7 +68,7 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="returnBookBtn"  contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Return" textAlignment="CENTER">
+                  <Button fx:id="returnBookBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#returnPopUp" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Return" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

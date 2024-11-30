@@ -30,18 +30,18 @@
             <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
          <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Title" GridPane.rowIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Author" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" GridPane.rowIndex="3" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Availability" GridPane.rowIndex="4" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Borrower's Name" GridPane.rowIndex="5" />
+            <TextField fx:id="bookID" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <TextField fx:id="bookTitle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="bookAuthor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="bookISBN" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="bookAvailability" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="bookBorrowerName" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
-            <TextField fx:id="bookID" GridPane.columnIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
                   <Button fx:id="OKbtn" mnemonicParsing="false" onAction="#addBook" text="OK">

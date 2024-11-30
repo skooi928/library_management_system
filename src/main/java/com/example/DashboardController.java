@@ -1,6 +1,9 @@
 package com.example;
 
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.scene.control.TextField;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,9 +51,15 @@ public class DashboardController {
     private Button returnBookBtn;
 
     @FXML
+    private TextField searchField;
+
+    private FilteredList<Book> filteredData;
+
+    @FXML
     private void initialize() {
         setupDragAndDrop();
         initializeTableView();
+        setupSearchFunctionality(); // add the event listener where the textfield is changed everytime
     }
 
     private void setupDragAndDrop() {
@@ -98,9 +107,6 @@ public class DashboardController {
         tableView = new TableView<>();
         tableView.setPrefSize(csvDropPane.getWidth(), csvDropPane.getHeight());
 
-        // Bind the TableView to the shared Library
-        tableView.setItems(Library.getInstance().getBooks());
-
         // Define table columns
         TableColumn<Book, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -124,6 +130,11 @@ public class DashboardController {
         tableView.getColumns().addAll(idColumn, titleColumn, authorColumn, isbnColumn, availabilityColumn,
                 borrowerNameColumn);
 
+        filteredData = new FilteredList<>(Library.getInstance().getBooks(), p -> true); // only show p is true
+        SortedList<Book> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sortedData);
+
         // Add TableView to AnchorPane
         AnchorPane.setTopAnchor(tableView, 0.0);
         AnchorPane.setBottomAnchor(tableView, 0.0);
@@ -133,6 +144,8 @@ public class DashboardController {
     }
 
     private void loadCSV(File file) throws IOException {
+        Library.getInstance().setCurrentLoadedFile(file);
+
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
         List<Book> data = new ArrayList<>();
@@ -220,11 +233,15 @@ public class DashboardController {
     @FXML
     private void addPopUp(ActionEvent event) {
         try {
+            if (Library.getInstance().getBooks().isEmpty()) {
+                showAlert("Error", "No CSV loaded.");
+                return;
+            }
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("addBookDialog.fxml"));
             Parent newRoot = loader.load();
 
             AddBookController addBookController = loader.getController();
-            // No need to pass table data since it's bound to Library
 
             Stage dialog = new Stage();
             dialog.setTitle("Add Book");
@@ -258,7 +275,6 @@ public class DashboardController {
             Parent newRoot = loader.load();
 
             PreBorrowBookController preBorrowBookController = loader.getController();
-            // No need to pass table data since it's bound to Library
 
             Stage dialog = new Stage();
             dialog.setTitle("Borrow Book");
@@ -278,5 +294,61 @@ public class DashboardController {
             e.printStackTrace();
             showAlert("Error", "Borrow book dialog failed to load.");
         }
+    }
+
+    @FXML
+    private void returnPopUp(ActionEvent event) {
+        if (Library.getInstance().getBooks().isEmpty()) {
+            showAlert("Error", "No books loaded.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("returnBookDialog.fxml"));
+            Parent newRoot = loader.load();
+
+            ReturnBookController returnBookController = loader.getController();
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Return Book");
+            dialog.setResizable(false);
+            dialog.setScene(new Scene(newRoot));
+
+            // Pass the stage to the controller
+            returnBookController.setDialogStage(dialog);
+
+            // Make the dialog modal
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(SceneManager.getPrimaryStage());
+
+            dialog.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Return book dialog failed to load.");
+        }
+    }
+
+    private void setupSearchFunctionality() {
+        // Add listener to searchField to filter the list
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(book -> {
+                // If search field is empty, display all books
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (book.getTitle().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches title
+                } else if (book.getAuthor().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches author
+                } else if (book.getIsbn().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches ISBN
+                }
+                return false; // Does not match
+            });
+        });
     }
 }

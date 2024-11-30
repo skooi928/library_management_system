@@ -14,6 +14,7 @@ public class Library {
     private static Library instance = null;
     private final ObservableList<Book> books;
     private final Map<String, String> users; // Map to store user data (IC -> Name)
+    private File currentLoadedFile;
 
     private Library() {
         books = FXCollections.observableArrayList();
@@ -44,6 +45,11 @@ public class Library {
         book.setBorrowerName(borrowerName);
     }
 
+    public void returnBook(Book book) {
+        book.setAvailability("Available");
+        book.setBorrowerName("");
+    }
+
     public void loadUsers(File file) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
@@ -69,5 +75,17 @@ public class Library {
 
     public String getUserName(String ic) {
         return users.get(ic);
+    }
+
+    public Map<String, String> getUsersMap() {
+        return users;
+    }
+
+    public File getCurrentLoadedFile() {
+        return currentLoadedFile;
+    }
+
+    public void setCurrentLoadedFile(File currentLoadedFile) {
+        this.currentLoadedFile = currentLoadedFile;
     }
 }

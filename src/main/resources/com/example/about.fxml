@@ -19,7 +19,7 @@
                   <Insets bottom="50.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Library Management System, &#10;specially designed by Seong Kin and Xue Qing for CAT201 assignment 1,&#10;a comprehensive solution designed to simplify and streamline library operations. &#10;This system empowers librarians and administrators to efficiently manage library resources, &#10;ensuring a seamless and enjoyable experience for all users." textAlignment="CENTER">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Library Management System, &#10;specially designed by Seong Kin and Xue Qing for CAT201 Assignment 1.&#10;This application is great to help librarian managing the book, in borrowing and returning.&#10;By having a respective user database,&#10;this system can easily track the borrowers by just using their IC number.&#10;" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="50.0" />
                </VBox.margin>

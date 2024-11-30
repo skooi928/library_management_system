@@ -6,15 +6,13 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.MainController">
    <stylesheets>
       <URL value="@template.css" />
    </stylesheets>
@@ -23,28 +21,8 @@
         <menus>
             <Menu mnemonicParsing="false" text="File">
             <items>
-                    <MenuItem mnemonicParsing="false" text="New" />
-                    <MenuItem mnemonicParsing="false" text="Open" />
-                    <MenuItem mnemonicParsing="false" text="Save" />
-                <MenuItem mnemonicParsing="false" text="Quit" />
-            </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Book">
-                <items>
-                <MenuItem mnemonicParsing="false" text="Add" />
-                    <MenuItem mnemonicParsing="false" text="Borrow" />
-                    <MenuItem mnemonicParsing="false" text="Return" />
-                </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-            <items>
-                <MenuItem mnemonicParsing="false" text="Undo" />
-                    <MenuItem mnemonicParsing="false" text="Redo" />
-            </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-            <items>
-                <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem fx:id="saveMenuItem" accelerator="Ctrl+S" mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                <MenuItem accelerator="F9" mnemonicParsing="false" onAction="#handleQuit" text="Quit" />
             </items>
             </Menu>
         </menus>
