@@ -32,7 +32,6 @@ public class PreBorrowBookController {
 
         if (!Library.getInstance().userExists(icNo)) {
             showAlert("Error", "User not found.");
-            dialogStage.close();
             return;
         }
 

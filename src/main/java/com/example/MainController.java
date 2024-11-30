@@ -116,7 +116,7 @@ public class MainController {
             writer.newLine();
 
             for (Book book : Library.getInstance().getBooks()) {
-                String line = String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
+                String line = String.format("%s,%s,%s,%s,%s,%s",
                         (book.getId()),
                         (book.getTitle()),
                         (book.getAuthor()),
