@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<DialogPane prefWidth="380.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.AddBookController">
-   <buttonTypes>
-      <ButtonType fx:constant="OK" />
-      <ButtonType fx:constant="CANCEL" />
-   </buttonTypes>
+<DialogPane prefHeight="298.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.AddBookController">
    <graphic>
-      <GridPane alignment="TOP_CENTER" hgap="5.0" prefHeight="230.0" prefWidth="360.0" vgap="5.0">
+      <GridPane alignment="TOP_CENTER" hgap="5.0" prefHeight="273.0" prefWidth="360.0" vgap="5.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.39996337890625" minWidth="10.0" prefWidth="65.59998779296876" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.20001220703125" minWidth="10.0" prefWidth="235.20001220703125" />
@@ -25,6 +22,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -44,6 +42,20 @@
             <TextField fx:id="bookBorrowerName" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
             <TextField fx:id="bookID" GridPane.columnIndex="1" />
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <children>
+                  <Button fx:id="OKbtn" mnemonicParsing="false" onAction="#addBook" text="OK">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#closeDialogStage" text="CANCEL">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </graphic>

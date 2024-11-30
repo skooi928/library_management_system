@@ -16,7 +16,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.MainController">
    <stylesheets>
-      <URL value="@dashboard.css" />
+      <URL value="@template.css" />
    </stylesheets>
    <children>
     <MenuBar layoutY="1.0" prefWidth="861.0" style="-fx-padding: 0; -fx-background-color: #dddddd;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
