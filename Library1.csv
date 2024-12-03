@@ -11,10 +11,12 @@ ID,Title,Author,ISBN,Availability,BorrowerName
 2411300010,Animal Farm,George Orwell,9780451526342,Available,
 2411300011,The Chronicles of Narnia,C.S. Lewis,9780066238500,Available,
 2411300012,The Hunger Games,Suzanne Collins,9780439023528,Available,
-2411300013,Divergent,Veronica Roth,9780062024039,Available,
+2411300013,Divergent,Veronica Roth,9780062024039,Borrowed,Ooi Seong Kin
 2411300014,The Fault in Our Stars,John Green,9780525478812,Available,
 2411300015,The Book Thief,Markus Zusak,9780375842207,Available,
 2411300016,The Kite Runner,Khaled Hosseini,9781594631931,Available,
 2411300017,The Girl with the Dragon Tattoo,Stieg Larsson,9780307949486,Available,
 2411300018,Life of Pi,Yann Martel,9780156027328,Available,
 2411300019,The Shining,Stephen King,9780307743657,Available,
+2412010001,New Book,Random,10101001010,Available,
+2413100001,This is a demo,Me,97156512341,Available,

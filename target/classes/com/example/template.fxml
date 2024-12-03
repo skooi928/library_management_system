@@ -27,7 +27,7 @@
             </Menu>
         </menus>
         </MenuBar>
-        <VBox fillWidth="false" layoutX="10.0" layoutY="37.0" maxWidth="182.0" minWidth="182.0" prefHeight="484.0" prefWidth="182.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="26.0">
+        <VBox alignment="CENTER" fillWidth="false" layoutX="10.0" layoutY="37.0" maxWidth="182.0" minWidth="182.0" prefHeight="484.0" prefWidth="182.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="26.0">
             <children>
                     <Button fx:id="viewDashboardBtn" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="98.0" prefWidth="163.0" styleClass="button" text="Dashboard">
                 <font>
@@ -44,7 +44,7 @@
                     </ImageView>
                 </graphic>
                 <VBox.margin>
-                    <Insets bottom="10.0" top="10.0" />
+                    <Insets bottom="10.0" right="10.0" top="10.0" />
                 </VBox.margin>
             </Button>
             <Button fx:id="userInfoBtn" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="98.0" prefWidth="163.0" styleClass="button" text="Users Info">
@@ -62,25 +62,7 @@
                     </ImageView>
                 </graphic>
                 <VBox.margin>
-                    <Insets bottom="10.0" top="10.0" />
-                </VBox.margin>
-            </Button>
-            <Button fx:id="settingBtn" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="98.0" prefWidth="163.0" styleClass="button" text="Settings">
-                <font>
-                    <Font name="System Bold" size="14.0" />
-                </font>
-                <padding>
-                    <Insets left="20.0" />
-                </padding>
-                <graphic>
-                    <ImageView fitHeight="37.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                        <Image url="@assets/icons/setting.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-                <VBox.margin>
-                    <Insets bottom="10.0" top="10.0" />
+                    <Insets bottom="10.0" right="10.0" top="10.0" />
                 </VBox.margin>
             </Button>
             <Button fx:id="aboutBtn" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="98.0" prefWidth="163.0" styleClass="button" text="About">
@@ -98,7 +80,7 @@
                     </ImageView>
                 </graphic>
                 <VBox.margin>
-                    <Insets bottom="10.0" top="10.0" />
+                    <Insets bottom="10.0" right="10.0" top="10.0" />
                 </VBox.margin>
             </Button>
             </children>

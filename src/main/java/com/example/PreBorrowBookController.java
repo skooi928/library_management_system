@@ -40,7 +40,6 @@ public class PreBorrowBookController {
             Parent newRoot = loader.load();
 
             BorrowBookController borrowBookController = loader.getController();
-            // Pass the borrower IC number to the BorrowBookController
             borrowBookController.setBorrowerICNo(icNo);
             borrowBookController.setDialogStage(dialogStage);
 

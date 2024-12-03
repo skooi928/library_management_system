@@ -21,8 +21,8 @@ public class MainController {
     @FXML
     private Button userInfoBtn;
 
-    @FXML
-    private Button settingBtn;
+    // @FXML
+    // private Button settingBtn;
 
     @FXML
     private Button aboutBtn;
@@ -37,6 +37,7 @@ public class MainController {
         return SceneManager.getCurrentFXML();
     }
 
+    // add selected to change the color of the button
     private void setButtonStyleBasedOnCurrentFXML() {
         String currentFXML = getCurrentFXML();
         if (currentFXML != null) {
@@ -47,9 +48,9 @@ public class MainController {
                 case "userInfo.fxml":
                     userInfoBtn.getStyleClass().add("selected");
                     break;
-                case "settings.fxml":
-                    settingBtn.getStyleClass().add("selected");
-                    break;
+                // case "settings.fxml":
+                // settingBtn.getStyleClass().add("selected");
+                // break;
                 case "about.fxml":
                     aboutBtn.getStyleClass().add("selected");
                     break;
@@ -68,9 +69,11 @@ public class MainController {
             targetFXML = "dashboard.fxml";
         } else if (clickedButton == userInfoBtn) {
             targetFXML = "userInfo.fxml";
-        } else if (clickedButton == settingBtn) {
-            targetFXML = "settings.fxml";
-        } else if (clickedButton == aboutBtn) {
+        }
+        // else if (clickedButton == settingBtn) {
+        // targetFXML = "settings.fxml";
+        // }
+        else if (clickedButton == aboutBtn) {
             targetFXML = "about.fxml";
         }
 
@@ -80,7 +83,7 @@ public class MainController {
     private void resetButtonStyles() {
         viewDashboardBtn.getStyleClass().remove("selected");
         userInfoBtn.getStyleClass().remove("selected");
-        settingBtn.getStyleClass().remove("selected");
+        // settingBtn.getStyleClass().remove("selected");
         aboutBtn.getStyleClass().remove("selected");
     }
 
@@ -101,17 +104,29 @@ public class MainController {
             return;
         }
 
-        // Save Library Data
         boolean librarySaved = saveLibraryData(currentFile);
 
         if (librarySaved) {
-            showAlert("Success", "Library data saved successfully.");
+            // Derive User File Name
+            String libraryFileName = currentFile.getName(); // e.g. "Library1.csv"
+            int dotIndex = libraryFileName.lastIndexOf('.');
+            String baseName = (dotIndex == -1) ? libraryFileName : libraryFileName.substring(0, dotIndex);
+            String userFileName = baseName + "Users.csv"; // e.g. "Library1Users.csv"
+
+            File userFile = new File(currentFile.getParent(), userFileName);
+
+            // Save User Data
+            boolean usersSaved = saveUserData(userFile);
+
+            if (usersSaved) {
+                showAlert("Success", "Library and User data saved successfully.");
+            }
         }
     }
 
     private boolean saveLibraryData(File libraryFile) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(libraryFile))) {
-            // Write header
+            // Header
             writer.write("ID,Title,Author,ISBN,Availability,BorrowerName");
             writer.newLine();
 
@@ -135,6 +150,28 @@ public class MainController {
         }
     }
 
+    private boolean saveUserData(File userFile) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(userFile))) {
+            // Write header
+            writer.write("IC Number,Name");
+            writer.newLine();
+
+            for (Map.Entry<String, String> entry : Library.getInstance().getUsersMap().entrySet()) {
+                String line = String.format("%s,%s",
+                        (entry.getKey()),
+                        (entry.getValue()));
+                writer.write(line);
+                writer.newLine();
+            }
+
+            return true;
+        } catch (IOException e) {
+            showAlert("Error", "Failed to save user data.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
         if (title.equalsIgnoreCase("Error")) {
@@ -148,6 +185,7 @@ public class MainController {
 
     @FXML
     private void handleQuit(ActionEvent event) {
+//      handleSave(event);
         Stage stage = SceneManager.getPrimaryStage();
         stage.close();
     }

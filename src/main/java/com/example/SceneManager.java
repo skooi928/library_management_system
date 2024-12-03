@@ -35,12 +35,10 @@ public class SceneManager {
         primaryStage.show();
     }
 
-    // Getter for the current FXML file name
     public static String getCurrentFXML() {
         return currentFXML;
     }
 
-    // Getter for the primary stage
     public static Stage getPrimaryStage() {
         return primaryStage;
     }

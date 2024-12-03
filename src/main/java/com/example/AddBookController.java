@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javafx.fxml.FXML;
@@ -57,6 +58,18 @@ public class AddBookController {
             return;
         }
 
+        // Validate duplicate ID
+        if (Library.getInstance().getBooks().stream()
+                .anyMatch(book -> book.getId().equals(id))) { // .stream() converts the ObservableList to a Stream
+            // anyMatch checks if the condition is true or not for the predicate defined
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Duplicate ID");
+            alert.setContentText("A book with this ID already exists.");
+            alert.showAndWait();
+            return;
+        }
+
         // Validate available type
         if (availability.equals("Available") && availability.equals("Borrowed")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -68,8 +81,8 @@ public class AddBookController {
         }
 
         // Validate available + borrower
-        if (!(availability.equals("Available") && borrowerName.equals(""))
-                || !(availability.equals("Borrowed") && isValidBorrower(borrowerName))) {
+        if (!(availability.equals("Available") && borrowerName.equals("")
+                || availability.equals("Borrowed") && isValidBorrower(borrowerName))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Invalid availability and borrower entry!");
@@ -79,29 +92,25 @@ public class AddBookController {
             return;
         }
 
-        // Validate Borrower's Name
-        if (!isValidBorrower(borrowerName)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Invalid Borrower");
-            alert.setContentText("This user is not in our system.");
-            alert.showAndWait();
-            return;
-        }
-
         Book newBook = new Book(id, title, author, isbn, availability, borrowerName);
 
-        // Add to the shared Library
+        // Add the new book to the Library
         Library.getInstance().addBook(newBook);
 
-        // Optionally, show confirmation
         Alert confirmation = new Alert(Alert.AlertType.INFORMATION);
         confirmation.setTitle("Success");
         confirmation.setHeaderText(null);
         confirmation.setContentText("Book added successfully!");
         confirmation.showAndWait();
 
-        // Close the dialog
+        // Save the updated book list to CSV
+        try {
+            Library.getInstance().saveCSV();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
         dialogStage.close();
     }
 
@@ -110,14 +119,14 @@ public class AddBookController {
             return false;
         }
 
-        // Retrieve the users map from Library
+        // get the users map from Library
         Map<String, String> usersMap = Library.getInstance().getUsersMap();
 
         if (usersMap == null || usersMap.isEmpty()) {
             return false;
         }
 
-        // Check if the borrower name exists in the users map values
+        // check name in the list or not
         return usersMap.containsValue(borrowerName);
     }
 
@@ -126,10 +135,9 @@ public class AddBookController {
     private void setupBorrowerNameValidation() {
         bookBorrowerName.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!Library.getInstance().getUsersMap().containsValue(newValue)) {
-                bookBorrowerName.setStyle("-fx-border-color: red;");
+                bookBorrowerName.setStyle("-fx-border-color: red;"); // if not exist
             } else {
-                // Reset to default style
-                bookBorrowerName.setStyle("");
+                bookBorrowerName.setStyle(""); // if exist
             }
         });
     }

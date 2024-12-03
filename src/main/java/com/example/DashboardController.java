@@ -29,7 +29,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class DashboardController {
 
@@ -40,6 +39,9 @@ public class DashboardController {
     private Button uploadCSVbtn;
 
     private TableView<Book> tableView;
+
+    @FXML
+    private Button viewDetailsBtn;
 
     @FXML
     private Button addBookBtn;
@@ -60,6 +62,8 @@ public class DashboardController {
         setupDragAndDrop();
         initializeTableView();
         setupSearchFunctionality(); // add the event listener where the textfield is changed everytime
+        setupViewDetailsButton();
+        loadLastCSV();
     }
 
     private void setupDragAndDrop() {
@@ -107,7 +111,7 @@ public class DashboardController {
         tableView = new TableView<>();
         tableView.setPrefSize(csvDropPane.getWidth(), csvDropPane.getHeight());
 
-        // Define table columns
+        // Set all table columns
         TableColumn<Book, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
@@ -130,17 +134,10 @@ public class DashboardController {
         tableView.getColumns().addAll(idColumn, titleColumn, authorColumn, isbnColumn, availabilityColumn,
                 borrowerNameColumn);
 
-        filteredData = new FilteredList<>(Library.getInstance().getBooks(), p -> true); // only show p is true
+        filteredData = Library.getInstance().getFilteredBooks();
         SortedList<Book> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableView.comparatorProperty());
         tableView.setItems(sortedData);
-
-        // Add TableView to AnchorPane
-        AnchorPane.setTopAnchor(tableView, 0.0);
-        AnchorPane.setBottomAnchor(tableView, 0.0);
-        AnchorPane.setLeftAnchor(tableView, 0.0);
-        AnchorPane.setRightAnchor(tableView, 0.0);
-        csvDropPane.getChildren().add(tableView);
     }
 
     private void loadCSV(File file) throws IOException {
@@ -158,8 +155,7 @@ public class DashboardController {
             if (rowCount == 0) {
                 headers = values;
             } else {
-                if (values.length < 6) {
-                    // Handle missing fields by filling empty strings
+                if (values.length < 6) { // if got empty value, since available and borrowerName can be empty
                     String[] completeValues = new String[6];
                     System.arraycopy(values, 0, completeValues, 0, values.length);
                     for (int i = values.length; i < 6; i++) {
@@ -186,23 +182,43 @@ public class DashboardController {
             return;
         }
 
-        // Clear existing data in Library
+        // Clear existing data
         Library.getInstance().getBooks().clear();
 
         // Add data to Library
         Library.getInstance().getBooks().addAll(data);
 
         // Derive the user CSV file name based on the library file name
-        String libraryFileName = file.getName(); // e.g., "Library1.csv"
+        String libraryFileName = file.getName();
         int dotIndex = libraryFileName.lastIndexOf('.');
-        String baseName = (dotIndex == -1) ? libraryFileName : libraryFileName.substring(0, dotIndex);
-        String userFileName = baseName + "Users.csv"; // e.g., "Library1Users.csv"
+        String baseName = (dotIndex == -1) ? libraryFileName : libraryFileName.substring(0, dotIndex); // get the name
+                                                                                                       // without the
+                                                                                                       // extension
+        String userFileName = baseName + "Users.csv";
 
         File userFile = new File(file.getParent(), userFileName);
         if (userFile.exists() && userFile.isFile()) {
             Library.getInstance().loadUsers(userFile);
         } else {
             showAlert("Error", "User data file \"" + userFileName + "\" not found.");
+        }
+
+        // Add TableView to AnchorPane
+        AnchorPane.setTopAnchor(tableView, 0.0);
+        AnchorPane.setBottomAnchor(tableView, 0.0);
+        AnchorPane.setLeftAnchor(tableView, 0.0);
+        AnchorPane.setRightAnchor(tableView, 0.0);
+        csvDropPane.getChildren().add(tableView);
+    }
+
+    private void loadLastCSV() {
+        File lastFile = Library.getInstance().getLastLoadedFile();
+        if (lastFile != null) {
+            try {
+                loadCSV(lastFile);
+            } catch (IOException e) {
+                showAlert("Error", "Failed to load the last CSV file.");
+            }
         }
     }
 
@@ -227,6 +243,28 @@ public class DashboardController {
             } catch (IOException e) {
                 showAlert("Error", "Failed to load CSV file.");
             }
+        }
+    }
+
+    private void setupViewDetailsButton() {
+        viewDetailsBtn.setOnAction(event -> viewSelectedBookDetails());
+    }
+
+    private void viewSelectedBookDetails() {
+        if (Library.getInstance().getBooks().isEmpty()) {
+            showAlert("Error", "No CSV loaded.");
+            return;
+        }
+
+        Book selectedBook = tableView.getSelectionModel().getSelectedItem();
+        if (selectedBook != null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Book Details");
+            alert.setHeaderText("Details of the Selected Book");
+            alert.setContentText(selectedBook.displayAll());
+            alert.showAndWait();
+        } else {
+            showAlert("No Selection", "Please select a book to view its details.");
         }
     }
 
@@ -332,23 +370,7 @@ public class DashboardController {
     private void setupSearchFunctionality() {
         // Add listener to searchField to filter the list
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(book -> {
-                // If search field is empty, display all books
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (book.getTitle().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches title
-                } else if (book.getAuthor().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches author
-                } else if (book.getIsbn().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches ISBN
-                }
-                return false; // Does not match
-            });
+            Library.getInstance().setSearchFilter(newValue);
         });
     }
 }

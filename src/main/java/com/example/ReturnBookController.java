@@ -1,5 +1,6 @@
-// File: ReturnBookController.java
 package com.example;
+
+import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -45,6 +46,15 @@ public class ReturnBookController {
 
         Library.getInstance().returnBook(bookToReturn);
         showAlert("Success", "Book returned successfully.");
+
+        // Save the updated book list to CSV
+        try {
+            Library.getInstance().saveCSV();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
         dialogStage.close();
     }
 

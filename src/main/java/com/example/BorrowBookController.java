@@ -1,5 +1,7 @@
 package com.example;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -31,7 +33,7 @@ public class BorrowBookController {
         Book bookToBorrow = null;
         for (Book book : Library.getInstance().getBooks()) {
             if (book.getId().equals(bookId)) {
-                if (book.getAvailability().equalsIgnoreCase("Available")) {
+                if (book.getAvailability().equals("Available")) {
                     bookToBorrow = book;
                     break;
                 } else {
@@ -50,6 +52,15 @@ public class BorrowBookController {
         Library.getInstance().borrowBook(bookToBorrow, borrowerName);
 
         showAlert("Success", "Book borrowed successfully by " + borrowerName + ".");
+
+        // Save the updated book list to CSV
+        try {
+            Library.getInstance().saveCSV();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
         dialogStage.close();
     }
 

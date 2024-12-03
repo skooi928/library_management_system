@@ -52,6 +52,14 @@
             </AnchorPane>
             <HBox alignment="CENTER">
                <children>
+                  <Button fx:id="viewDetailsBtn" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Display" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
                   <Button fx:id="addBookBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addPopUp" prefHeight="30.0" prefWidth="192.0" style="-fx-background-color: #C0FDFB; -fx-background-radius: 30;" text="Add" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="18.0" />

@@ -20,8 +20,6 @@ public class Book {
         this.borrowerName = new SimpleStringProperty(borrowerName);
     }
 
-    // Getters and Setters
-
     public String getId() {
         return id.get();
     }
@@ -92,5 +90,26 @@ public class Book {
 
     public StringProperty borrowerNameProperty() {
         return borrowerName;
+    }
+
+    public void borrowBook(String borrowerName) {
+        setAvailability("Borrowed");
+        setBorrowerName(borrowerName);
+    }
+
+    public void returnBook() {
+        setAvailability("Available");
+        setBorrowerName("");
+    }
+
+    public String displayAll() {
+        return String.format(
+                "ID: %s\nTitle: %s\nAuthor: %s\nISBN: %s\nAvailability: %s\nBorrower's Name: %s",
+                getId(),
+                getTitle(),
+                getAuthor(),
+                getIsbn(),
+                getAvailability(),
+                getBorrowerName());
     }
 }
